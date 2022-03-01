@@ -35,8 +35,8 @@ class libraryController extends Controller
 
     public function getNewBooks()
     {
-        $newBooks = DB::table('books')->join('newbooks', 'newbooks.barcode', 'books.barcode')->get();
-        return $newBooks;
+        $newbooks = DB::table('Books')->join('NewBooks', 'NewBooks.barcode', 'Books.barcode')->get();
+        return $newbooks;
     }
 
     public function deleteNewBook(Request $request)
@@ -47,8 +47,9 @@ class libraryController extends Controller
 
     public function index()
     {
-        // $books = newbooks::get();
-        $newbooks = DB::table('books')->join('newbooks', 'newbooks.barcode', 'books.barcode')->get();
+        // $books = NewBooks::get();
+        $newbooks=[];
+        // $newbooks = DB::table('books')->join('new_books', 'new_books.barcode', 'books.barcode')->get();
         // dd($newbooks);
         return view('books', compact('newbooks'));
     }

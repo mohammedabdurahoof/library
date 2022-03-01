@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\libraryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +28,7 @@ require __DIR__.'/auth.php';
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/books', [libraryController::class, 'index']);
+Route::post('/import', [libraryController::class, 'import'])->name('import');
+Route::get('/export', [libraryController::class, 'export'])->name('export');
