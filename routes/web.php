@@ -32,3 +32,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/books', [libraryController::class, 'index']);
 Route::post('/import', [libraryController::class, 'import'])->name('import');
 Route::get('/export', [libraryController::class, 'export'])->name('export');
+Route::post('/add-new-book', [libraryController::class, 'addNewBook'])->name('addNewBook');
+Route::get('/get-new-book', [libraryController::class, 'getNewBooks'])->name('getNewBooks');
+Route::post('/delete-new-book', [libraryController::class, 'deleteNewBook'])->name('deleteNewBook');

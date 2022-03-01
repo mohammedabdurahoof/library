@@ -9,8 +9,9 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
-import ReactDOM from 'react-dom';
-
+import ReactDOM from "react-dom";
+import { Chip, TextField } from "@mui/material";
+import Axios from "../Axios/Axios";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {
@@ -52,12 +53,64 @@ BootstrapDialogTitle.propTypes = {
 
 export default function CustomizedDialogs() {
     const [open, setOpen] = React.useState(false);
+    const [barcode, setBarcode] = React.useState("");
+    const [newBooks, setNewBooks] = React.useState([]);
+
+    React.useEffect(() => {
+        getNewBooks();
+    }, []);
 
     const handleClickOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
         setOpen(false);
+        location.reload();
+    };
+
+    const handleClick = () => {
+        console.info("You clicked the Chip.");
+    };
+
+    const handleDelete = (id) => {
+        console.info("You clicked the delete icon.");
+        Axios.post("delete-new-book", {
+            id,
+        })
+            .then((res) => {
+                console.log(res.data);
+                getNewBooks();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const search = (e) => {
+        e.preventDefault();
+        Axios.post("add-new-book", {
+            barcode,
+        })
+            .then((res) => {
+                console.log(res.data);
+                getNewBooks();
+                setBarcode("");
+                document.getElementById("filled-basic").value = "";
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const getNewBooks = () => {
+        Axios.get("get-new-book")
+            .then((res) => {
+                // console.log(res.data);
+                setNewBooks(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     return (
@@ -77,35 +130,32 @@ export default function CustomizedDialogs() {
                     Add New Books
                 </BootstrapDialogTitle>
                 <DialogContent dividers>
-                    <Typography gutterBottom>
-                        Cras mattis consectetur purus sit amet fermentum. Cras
-                        justo odio, dapibus ac facilisis in, egestas eget quam.
-                        Morbi leo risus, porta ac consectetur ac, vestibulum at
-                        eros.
-                    </Typography>
-                    <Typography gutterBottom>
-                        Praesent commodo cursus magna, vel scelerisque nisl
-                        consectetur et. Vivamus sagittis lacus vel augue laoreet
-                        rutrum faucibus dolor auctor.
-                    </Typography>
-                    <Typography gutterBottom>
-                        Aenean lacinia bibendum nulla sed consectetur. Praesent
-                        commodo cursus magna, vel scelerisque nisl consectetur
-                        et. Donec sed odio dui. Donec ullamcorper nulla non
-                        metus auctor fringilla.
-                    </Typography>
+                    <form onSubmit={(e) => search(e)}>
+                        <TextField
+                            id="filled-basic"
+                            label="Filled"
+                            variant="filled"
+                            onChange={(e) => setBarcode(e.target.value)}
+                        />
+                    </form>
+                    {newBooks.map((book, key) => {
+                        return (
+                            <div className="mt-2" key={key}>
+                                <Chip
+                                    label={book.barcode}
+                                    onClick={handleClick}
+                                    onDelete={() => handleDelete(book.id)}
+                                    color="primary"
+                                />
+                            </div>
+                        );
+                    })}
                 </DialogContent>
-                <DialogActions>
-                    <Button autoFocus onClick={handleClose}>
-                        Save changes
-                    </Button>
-                </DialogActions>
             </BootstrapDialog>
         </div>
     );
 }
 
-if (document.getElementById('model')) {
-    ReactDOM.render(<CustomizedDialogs />, document.getElementById('model'));
+if (document.getElementById("model")) {
+    ReactDOM.render(<CustomizedDialogs />, document.getElementById("model"));
 }
-

@@ -1,0 +1,119 @@
+body{
+    background-color: #fdffed;
+}
+
+header{
+    background-color: #fdffed;
+    box-shadow: none;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    top: 0;
+}
+
+.logo {
+    padding: 0.75rem 0;
+}
+
+.nav {
+    align-items: center;
+}
+
+.search-btn {
+    border: none;
+    outline: none;
+    border-radius: 0.5rem;
+    z-index: 2;
+    background-color: transparent;
+}
+.search-btn:focus {
+    border: none !important;
+    outline: none !important;
+}
+.search-box .bi {
+    color: #5d5f70;
+    font-size: 20px;
+}
+
+.search-box {
+    display: flex;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+}
+.has-search .form-control {
+    padding-left: 3rem;
+    height: 5.4rem;
+    background: rgb(255, 255, 255);
+    border-radius: 0.5rem;
+    box-shadow: rgb(28 28 28 / 8%) 0px 2px 8px;
+    border: 1px solid rgb(232, 232, 232) !important;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.header.home {
+    border-bottom: none;
+}
+
+.header.home .row {
+    align-items: center;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 3rem;
+    height: 3.2rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+.has-search {
+    margin: 0.75rem 0;
+    width: 100%;
+}
+.search-input {
+    height: 3.5rem !important;
+}
+
+.search-input:focus {
+    box-shadow: none !important;
+    outline: none !important;
+    border: 1px solid rgb(232, 232, 232) !important;
+    box-shadow: rgb(28 28 28 / 8%) 0px 2px 8px !important;
+}
+
+.MuiPaper-rounded {
+    border-radius: 8px !important;
+}
+
+.sp-buttons {
+    padding-top: -20px !important;
+    bottom: 3rem;
+}
+.sp-button {
+    border: 2px solid #a6cc3b !important;
+}
+
+#top-button {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: #000;
+    border-radius: 50%;
+    display: none;
+    z-index: 2;
+}
+
+#top-button svg {
+    color: #fff;
+}
+
+.frist-row{
+    margin-top: 5rem;
+}
