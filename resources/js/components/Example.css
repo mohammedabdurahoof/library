@@ -1,8 +1,8 @@
-body{
+body {
     background-color: #fdffed;
 }
 
-header{
+header {
     background-color: #fdffed;
     box-shadow: none;
     position: fixed;
@@ -104,7 +104,7 @@ header{
     position: fixed;
     bottom: 1rem;
     right: 1rem;
-    background-color: #000;
+    background-color: #00ceff;
     border-radius: 50%;
     display: none;
     z-index: 2;
@@ -114,6 +114,12 @@ header{
     color: #fff;
 }
 
-.frist-row{
+.frist-row {
     margin-top: 5rem;
+}
+
+@media (max-width: 960px) {
+    .frist-row {
+        margin-top: 10rem;
+    }
 }

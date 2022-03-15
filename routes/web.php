@@ -19,19 +19,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 require __DIR__.'/auth.php';
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/books', [libraryController::class, 'index']);
-Route::post('/import', [libraryController::class, 'import'])->name('import');
-Route::get('/export', [libraryController::class, 'export'])->name('export');
-Route::post('/add-new-book', [libraryController::class, 'addNewBook'])->name('addNewBook');
+Route::get('/books', [libraryController::class, 'index'])->middleware('auth');
+Route::post('/import', [libraryController::class, 'import'])->middleware('auth')->name('import');
+Route::get('/export', [libraryController::class, 'export'])->middleware('auth')->name('export');
+Route::post('/add-new-book', [libraryController::class, 'addNewBook'])->middleware('auth')->name('addNewBook');
 Route::get('/get-new-book', [libraryController::class, 'getNewBooks'])->name('getNewBooks');
-Route::post('/delete-new-book', [libraryController::class, 'deleteNewBook'])->name('deleteNewBook');
+Route::post('/delete-new-book', [libraryController::class, 'deleteNewBook'])->middleware('auth')->name('deleteNewBook');
+Route::post('/search', [libraryController::class, 'search'])->name('search');

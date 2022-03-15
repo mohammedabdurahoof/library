@@ -1,77 +1,67 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+    <div class="login-box">
+        <h2>Register</h2>
+        <form method="POST" action="{{ route('register') }}" id="form">
+            @csrf
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+            <div class="user-box">
+                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                    value="{{ old('name') }}" required autocomplete="name" autofocus>
+                <label>Name</label>
+                @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
-        </div>
+            <div class="user-box">
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                    value="{{ old('email') }}" required autocomplete="email" autofocus>
+                <label>Email</label>
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="user-box">
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
+                    name="password" required autocomplete="current-password">
+                <label>Password</label>
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="user-box">
+                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required
+                    autocomplete="new-password">
+                <label>Confirm Password</label>
+            </div>
+            {{-- <div class="reg">
+                Already registered? <span href="{{ route('login') }}" onclick="linkChange()" id="linkChange">Login</span>
+            </div> --}}
+            {{-- <button type="submit"  class="btn btn-primary"> --}}
+            <a onclick="submit()">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Submit
+            </a>
+            {{-- </button> --}}
+        </form>
     </div>
-</div>
+    <script type="text/javascript">
+        function linkChange() {
+            location.href = '/register'
+        }
+
+        function submit() {
+            document.getElementById("form").submit();
+        }
+    </script>
 @endsection

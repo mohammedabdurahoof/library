@@ -1,12 +1,49 @@
 import { IconButton } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import logo from "../image/logo.png";
 import "./Example.css";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import New from "./New";
+import Axios from "../Axios/Axios";
+import Result from "./Result";
 
 function Example() {
+    const [newBooks, setNewBooks] = useState([]);
+    const [res, setRes] = useState(null);
+
+    useEffect(() => {
+        getNewBooks();
+    }, []);
+
+    const search = (e) => {
+        if (e.target.value) {
+            Axios.post("search", {
+                value: e.target.value,
+            })
+                .then((res) => {
+                    console.log(res.data);
+                    setRes(res.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        } else {
+            setRes(null);
+        }
+    };
+
+    const getNewBooks = () => {
+        Axios.get("get-new-book")
+            .then((res) => {
+                // console.log(res.data);
+                setNewBooks(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
     window.onscroll = () => {
         var topButton = document.getElementById("top-button");
         var header = document.getElementById("header");
@@ -47,11 +84,9 @@ function Example() {
                                     </button>
                                     <input
                                         type="text"
-                                        class="form-control search-input"
+                                        className="form-control search-input"
                                         placeholder="Search"
-                                        // onClick={() => {
-                                        //     history.push("/search");
-                                        // }}
+                                        onChange={(e) => search(e)}
                                     />
                                 </div>
                             </div>
@@ -61,16 +96,22 @@ function Example() {
             </header>
             <div className="container">
                 <div className="row frist-row">
-                    <New />
-                    <New />
-                    <New />
-                    <New />
-                    <New />
-                    <New />
-                    <New />
-                    <New />
-                    <New />
-                    <New />
+                    {res ? (
+                        res.length > 0 ? (
+                            res.map((book, key) => {
+                                return <Result key={key} book={book} />;
+                            })
+                        ) : (
+                            <h1 className="mt-5">Result Not Found. Try Again!</h1>
+                        )
+                    ) : (
+                        newBooks.map((book, key) => {
+                            return <New key={key} book={book} />;
+                        })
+                    )}
+                    {/* {newBooks.map((book, key) => {
+                        return <New key={key} book={book} />;
+                    })} */}
                 </div>
             </div>
 
@@ -82,6 +123,7 @@ function Example() {
                     <ArrowDropUpRoundedIcon />
                 </IconButton>
             </div>
+            <div className="mt-5"></div>
         </div>
     );
 }
